@@ -1,0 +1,17 @@
+conda create -n treeseq-inference python=3.8
+
+conda env list
+
+CTRL+SHIFT+P open “Preference: Open User Settings (JSON)”
+"python.terminal.activateEnvironment": true
+"python.condaPath": "C:\\ProgramData\\Anaconda3\\Scripts\\conda.exe"
+
+
+cd C:\Users\jingw\.conda\envs\treeseq-inference\Scripts
+
+change to bash 
+
+conda activate treeseq-inference
+
+Ctrl+Shift+P  Python: Select Interpreter 
+Select Python Environment
