@@ -15,3 +15,25 @@ conda activate treeseq-inference
 
 Ctrl+Shift+P  Python: Select Interpreter 
 Select Python Environment
+
+!pip install gsl
+!pip install Cython
+!pip install cyvcf2
+
+!pip install libgsl-dev r-base-core cmake cython3 libssl-dev libcurl4-openssl-dev
+
+
+cd D:\Repos\treeseq-inference
+!pip install -r requirements.txt
+
+pip install pandas
+pip install humanize
+pip install matplotlib
+pip install seaborn
+pip install scipy
+
+1kg_gnn.csv
+HG01933_local_GNN_1.csv
+
+python plot.py global_structure
+
