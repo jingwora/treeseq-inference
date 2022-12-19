@@ -17,11 +17,11 @@ import seaborn as sns
 import scipy
 
 tgp_region_pop = {
-    'AMR': ['CLM', 'MXL', 'PUR', 'PEL'],
-    'AFR': ['LWK', 'ASW', 'GWD', 'MSL', 'YRI', 'ACB', 'ESN'],
-    'EAS': ['CHS', 'KHV', 'JPT', 'CHB', 'CDX'],
-    'SAS': ['BEB', 'STU', 'GIH', 'PJL', 'ITU'],
-    'EUR': ['FIN', 'GBR', 'IBS', 'CEU', 'TSI'],
+    # 'AMR': ['CLM', 'MXL', 'PUR', 'PEL'],
+    # 'AFR': ['LWK', 'ASW', 'GWD', 'MSL', 'YRI', 'ACB', 'ESN'],
+    # 'EAS': ['CHS', 'KHV', 'JPT', 'CHB', 'CDX'],
+    # 'SAS': ['BEB', 'STU', 'GIH', 'PJL', 'ITU'],
+    # 'EUR': ['FIN', 'GBR', 'IBS', 'CEU', 'TSI'],
     'JPT': ['JPT'],
 }
 
@@ -36,11 +36,11 @@ tgp_populations = [
 
 def get_tgp_region_colours():
     return {
-        "EAS": sns.color_palette("Greens", 2)[1],
-        "EUR": sns.color_palette("Blues", 1)[0],
-        "AFR": sns.color_palette("Wistia", 3)[0],
-        "AMR": sns.color_palette("Reds", 2)[1],
-        "SAS": sns.color_palette("Purples", 2)[1],
+        # "EAS": sns.color_palette("Greens", 2)[1],
+        # "EUR": sns.color_palette("Blues", 1)[0],
+        # "AFR": sns.color_palette("Wistia", 3)[0],
+        # "AMR": sns.color_palette("Reds", 2)[1],
+        # "SAS": sns.color_palette("Purples", 2)[1],
         "JPT": sns.color_palette("Reds", 5)[1]
     }
 
@@ -48,13 +48,13 @@ def get_tgp_region_colours():
 def get_sgdp_region_colours():
     cols = get_tgp_region_colours()
     return {
-        'Africa': cols["AFR"],
-        'America': cols["AMR"],
-        'EastAsia': cols["EAS"],
-        'SouthAsia': cols["SAS"],
-        'Oceania': "brown",
-        'WestEurasia': cols["EUR"],
-        'CentralAsiaSiberia': "pink",
+        # 'Africa': cols["AFR"],
+        # 'America': cols["AMR"],
+        # 'EastAsia': cols["EAS"],
+        # 'SouthAsia': cols["SAS"],
+        # 'Oceania': "brown",
+        # 'WestEurasia': cols["EUR"],
+        # 'CentralAsiaSiberia': "pink",
         'Japan': cols["JPT"]
      }
 
@@ -1246,12 +1246,12 @@ class GlobalStructureFigure(Figure):
         # Same as plot_composite but we don't include the fancy annotations.
 
         colours = get_tgp_region_colours()
-        region_order = ['EUR', 'EAS', 'SAS', 'AFR', 'AMR', 'JPT']
+        region_order = ['JPT']
         full_df = pd.read_csv("data/1kg_gnn.csv")
         df = full_df[full_df.population == "PEL"].reset_index()
         A = np.zeros((len(tgp_region_pop), len(df)))
 
-        regions = ['EUR', 'EAS', 'SAS', 'AFR', 'AMR', 'JPT']
+        regions = ['JPT']
         for j, region in enumerate(regions):
             A[j, :] = np.sum([df[pop].values for pop in tgp_region_pop[region]], axis=0)
 
