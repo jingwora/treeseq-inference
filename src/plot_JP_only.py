@@ -17,11 +17,11 @@ import seaborn as sns
 import scipy
 
 tgp_region_pop = {
-    'AMR': ['CLM', 'MXL', 'PUR', 'PEL'],
-    'AFR': ['LWK', 'ASW', 'GWD', 'MSL', 'YRI', 'ACB', 'ESN'],
-    'EAS': ['CHS', 'KHV', 'JPT', 'CHB', 'CDX'],
-    'SAS': ['BEB', 'STU', 'GIH', 'PJL', 'ITU'],
-    'EUR': ['FIN', 'GBR', 'IBS', 'CEU', 'TSI'],
+    # 'AMR': ['CLM', 'MXL', 'PUR', 'PEL'],
+    # 'AFR': ['LWK', 'ASW', 'GWD', 'MSL', 'YRI', 'ACB', 'ESN'],
+    # 'EAS': ['CHS', 'KHV', 'JPT', 'CHB', 'CDX'],
+    # 'SAS': ['BEB', 'STU', 'GIH', 'PJL', 'ITU'],
+    # 'EUR': ['FIN', 'GBR', 'IBS', 'CEU', 'TSI'],
     'JPT': ['JPT'],
 }
 
@@ -36,11 +36,11 @@ tgp_populations = [
 
 def get_tgp_region_colours():
     return {
-        "EAS": sns.color_palette("Greens", 2)[1],
-        "EUR": sns.color_palette("Blues", 1)[0],
-        "AFR": sns.color_palette("Wistia", 3)[0],
-        "AMR": sns.color_palette("Reds", 2)[1],
-        "SAS": sns.color_palette("Purples", 2)[1],
+        # "EAS": sns.color_palette("Greens", 2)[1],
+        # "EUR": sns.color_palette("Blues", 1)[0],
+        # "AFR": sns.color_palette("Wistia", 3)[0],
+        # "AMR": sns.color_palette("Reds", 2)[1],
+        # "SAS": sns.color_palette("Purples", 2)[1],
         "JPT": sns.color_palette("Oranges", 5)[1]
     }
 
@@ -48,13 +48,13 @@ def get_tgp_region_colours():
 def get_sgdp_region_colours():
     cols = get_tgp_region_colours()
     return {
-        'Africa': cols["AFR"],
-        'America': cols["AMR"],
-        'EastAsia': cols["EAS"],
-        'SouthAsia': cols["SAS"],
-        'Oceania': "brown",
-        'WestEurasia': cols["EUR"],
-        'CentralAsiaSiberia': "pink",
+        # 'Africa': cols["AFR"],
+        # 'America': cols["AMR"],
+        # 'EastAsia': cols["EAS"],
+        # 'SouthAsia': cols["SAS"],
+        # 'Oceania': "brown",
+        # 'WestEurasia': cols["EUR"],
+        # 'CentralAsiaSiberia': "pink",
         'Japan': cols["JPT"]
      }
 
@@ -1077,6 +1077,8 @@ class MetricSubsamplingFigure(TreeMetricsFigure):
                 self.save("_".join([self.name, metric, rooting]))
 
 
+
+
 def rotate_linkage(linkage, index):
     x, y = linkage[index][0:2]
     linkage[index][0] = y
@@ -1220,7 +1222,7 @@ class GlobalStructureFigure(Figure):
     def plot_1kg_clustermap(self):
         df = pd.read_csv("data/1kg_gnn.csv")
         cg = self.plot_clustermap(
-            df, get_tgp_colours(), get_tgp_region_colours(), figsize=(30, 10))
+            df, get_tgp_colours(), get_tgp_region_colours(), figsize=(10, 10))
         cg.ax_col_dendrogram.legend(ncol=5)
         self.save("1kg_gnn_clustermap")
 
@@ -1231,7 +1233,7 @@ class GlobalStructureFigure(Figure):
         for pop, region in df.groupby(["population", "region"]).size().index:
             colours[pop] = region_colours[region]
 
-        cg = self.plot_clustermap(df, colours, region_colours, figsize=(30, 10))
+        cg = self.plot_clustermap(df, colours, region_colours, figsize=(10, 10))
         cg.ax_col_dendrogram.legend(ncol=2)
         cg.ax_heatmap.set_yticks([])
         cg.ax_heatmap.set_xticks([])
@@ -1244,12 +1246,12 @@ class GlobalStructureFigure(Figure):
         # Same as plot_composite but we don't include the fancy annotations.
 
         colours = get_tgp_region_colours()
-        region_order = ['EAS', 'JPT'] # ['EUR', 'EAS', 'SAS', 'AFR', 'AMR', 'JPT']
+        region_order = ['JPT']  # ['EUR', 'EAS', 'SAS', 'AFR', 'AMR', 'JPT']
         full_df = pd.read_csv("data/1kg_gnn.csv")
         df = full_df[full_df.population == "PEL"].reset_index()
         A = np.zeros((len(tgp_region_pop), len(df)))
 
-        regions = ['EAS', 'JPT'] # ['EUR', 'EAS', 'SAS', 'AFR', 'AMR', 'JPT']
+        regions = ['JPT'] #  ['EUR', 'EAS', 'SAS', 'AFR', 'AMR', 'JPT']
         for j, region in enumerate(regions):
             A[j, :] = np.sum([df[pop].values for pop in tgp_region_pop[region]], axis=0)
 
@@ -1263,7 +1265,7 @@ class GlobalStructureFigure(Figure):
 
         A = A[:, index]
 
-        fig, ax = plt.subplots(1, 1, figsize=(17, 30))
+        fig, ax = plt.subplots(1, 1, figsize=(17, 3))
         x = np.arange(len(df))
         for j, region in enumerate(regions):
             ax.bar(
@@ -1289,7 +1291,6 @@ class GlobalStructureFigure(Figure):
                 total += df[region]
             ax.set_xticks([])
             ax.set_yticks([])
-            ax.legend(handles=region_order)
             ax.set_xlim(0, df.right.max())
             ax.set_ylim(0, 1)
             ax.axis('off')
@@ -1311,7 +1312,7 @@ class GlobalStructureFigure(Figure):
         df = full_df[full_df.population == "PEL"].reset_index()
         A = np.zeros((len(tgp_region_pop), len(df)))
 
-        regions = ['EAS', 'JPT'] # ['EUR', 'EAS', 'SAS', 'AFR', 'AMR', 'JPT']
+        regions = ['EUR', 'EAS', 'SAS', 'AFR', 'AMR', 'JPT']
         for j, region in enumerate(regions):
             A[j, :] = np.sum([df[pop].values for pop in tgp_region_pop[region]], axis=0)
 

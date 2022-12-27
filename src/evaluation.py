@@ -36,7 +36,7 @@ import pandas as pd
 import tqdm
 
 import msprime
-import _msprime
+# import _msprime
 import tsinfer
 
 # The following are all contained in files local to this directory
